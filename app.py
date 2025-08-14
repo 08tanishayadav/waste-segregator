@@ -12,19 +12,19 @@ st.set_page_config(
     layout="centered"
 )
 
-# IMPORTANT: Replace this URL with the actual link to your MobileNetV2 model file
-MODEL_URL = 'https://github.com/ShreyaChhabra-Innovates/Waste_Segregation_Model/releases/download/v1.0.0/waste_model_gpu.pth'
-MODEL_PATH = 'waste_model_gpu.pth'
 
+MODEL_URL = None
+MODEL_PATH = "waste_model_mobilenet.pth"
 # --- Function to download the model ---
 @st.cache_data
 def download_model(url, path):
-    """Downloads the model file from a URL if it doesn't already exist."""
+    if url is None:
+        return path
     if not os.path.exists(path):
         with st.spinner("Downloading model... this may take a moment!"):
             try:
                 response = requests.get(url, stream=True)
-                response.raise_for_status()  # Check for bad responses
+                response.raise_for_status()
                 with open(path, 'wb') as f:
                     for chunk in response.iter_content(chunk_size=8192):
                         f.write(chunk)
@@ -33,7 +33,8 @@ def download_model(url, path):
                 st.error(f"Failed to download model: {e}")
                 return None
     return path
-# --- Load the model based on your function ---
+
+# --- Load the model based on function ---
 @st.cache_resource
 def load_model(model_path):
     """Load trained MobileNetV2 model with CPU/GPU handling"""
@@ -64,7 +65,7 @@ def load_model(model_path):
         st.error(f"Error loading model state dictionary: {e}")
         st.info("Please ensure the model file is a valid MobileNetV2 checkpoint for binary classification.")
         return None
-    # --- Prediction function based on your provided logic ---
+    # --- Prediction function ---
 def predict(model, image):
     """Make prediction on a single image"""
     transform = transforms.Compose([
@@ -90,11 +91,11 @@ def main():
     st.markdown("""
     This application is trained using CNN transfer learning model (MobileNetV2), and Binary Classification to segregate Waste images into Biodegradable and Non-Biodegradable.
    
-    Project Aim: Safe Desposal and Waste Treatment.
+    Project Aim: Safe Disposal and Waste Treatment.
 
     Explore by uploading Waste images and see how it works!
 
-    Github Repository: https://github.com/ShreyaChhabra-Innovates/Waste_Segregation_Model
+    Github Repository: https://github.com/08tanishayadav/waste-segregator
    
     """)
 
