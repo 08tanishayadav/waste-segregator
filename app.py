@@ -95,7 +95,6 @@ def main():
 
     Explore by uploading Waste images and see how it works!
 
-    Github Repository: https://github.com/08tanishayadav/waste-segregator
    
     """)
 
