@@ -27,8 +27,7 @@ Test Accuracy: 91.96%
 **For Dataset** :https://www.kaggle.com/datasets/techsash/waste-classification-data
 
 
-**Streamlit Link** :https://waste-segregation-model.streamlit.app/
-
+**Streamlit Link** :https://waste-segregator-ty.streamlit.app/
 
 **Sample Output**:
 
